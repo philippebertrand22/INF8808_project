@@ -16,7 +16,8 @@ The goal is to transform large-scale music data into engaging visual stories tha
 
 ## Dataset
 
-The project uses Spotify music data, including:
+The project uses Spotify music data, found here:
+https://www.kaggle.com/datasets/yamaerenay/spotify-dataset-19212020-600k-tracks
 
 * Track name
 * Artist name
