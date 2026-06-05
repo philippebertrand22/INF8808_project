@@ -1,0 +1,2 @@
+data/artists.csv filter=lfs diff=lfs merge=lfs -text
+data/tracks.csv filter=lfs diff=lfs merge=lfs -text
