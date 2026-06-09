@@ -1,6 +1,0 @@
-**download git lfs**
-
-run in command line:
-git lfs install
-git clone https://github.com/philippebertrand22/INF8808_project.git
-git lfs ls-files

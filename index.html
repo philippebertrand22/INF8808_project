@@ -8,12 +8,10 @@
             border-collapse: collapse;
             width: 100%;
         }
-
         th, td {
             border: 1px solid #ccc;
             padding: 8px;
         }
-
         th {
             background: #f4f4f4;
         }
@@ -21,32 +19,40 @@
 </head>
 <body>
     <h1>Artists</h1>
+    <table id="artistsTable"></table>
 
-    <table id="csvTable"></table>
+    <h1>Tracks</h1>
+    <table id="tracksTable"></table>
 
     <script>
-fetch('data/artists.csv')
-    .then(response => response.text())
-    .then(csv => {
-        const rows = csv.trim().split('\n').slice(0, 100);
+        const BASE_URL = 'https://pub-faaf5e5605734a2cbfe834c6f997422e.r2.dev';
 
-        const table = document.getElementById('csvTable');
+        function loadCSV(url, tableId) {
+            fetch(url)
+                .then(response => response.text())
+                .then(csv => {
+                    const rows = csv.trim().split('\n').slice(0, 100);
+                    const table = document.getElementById(tableId);
 
-        rows.forEach((row, index) => {
-            const tr = document.createElement('tr');
+                    rows.forEach((row, index) => {
+                        const tr = document.createElement('tr');
 
-            row.split(',').forEach(cell => {
-                const el = document.createElement(
-                    index === 0 ? 'th' : 'td'
-                );
+                        row.split(',').forEach(cell => {
+                            const el = document.createElement(
+                                index === 0 ? 'th' : 'td'
+                            );
+                            el.textContent = cell;
+                            tr.appendChild(el);
+                        });
 
-                el.textContent = cell;
-                tr.appendChild(el);
-            });
+                        table.appendChild(tr);
+                    });
+                })
+                .catch(err => console.error('Failed to load', url, err));
+        }
 
-            table.appendChild(tr);
-        });
-    });
+        loadCSV(`${BASE_URL}/artists.csv`, 'artistsTable');
+        loadCSV(`${BASE_URL}/tracks.csv`, 'tracksTable');
     </script>
 </body>
 </html>
