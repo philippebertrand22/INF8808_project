@@ -1,11 +1,52 @@
 <!DOCTYPE html>
-<html lang = "en">
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title> test test</title>
-  </head>
-  <body>
-    
-  </body>
+    <title>Artists CSV</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Artists</h1>
+
+    <table id="csvTable"></table>
+
+    <script>
+fetch('data/artists.csv')
+    .then(response => response.text())
+    .then(csv => {
+        const rows = csv.trim().split('\n').slice(0, 100);
+
+        const table = document.getElementById('csvTable');
+
+        rows.forEach((row, index) => {
+            const tr = document.createElement('tr');
+
+            row.split(',').forEach(cell => {
+                const el = document.createElement(
+                    index === 0 ? 'th' : 'td'
+                );
+
+                el.textContent = cell;
+                tr.appendChild(el);
+            });
+
+            table.appendChild(tr);
+        });
+    });
+    </script>
+</body>
 </html>
-    
