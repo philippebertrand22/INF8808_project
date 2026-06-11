@@ -1,0 +1,3 @@
+# The aggregated tables cached here are a few KB : keep them as regular
+# git files, outside of Git LFS (the repo root tracks *.csv with LFS).
+*.csv -filter -diff -merge text
