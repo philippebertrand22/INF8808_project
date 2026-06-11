@@ -22,6 +22,7 @@ import line_chart
 
 app = dash.Dash(__name__)
 app.title = 'Project | INF8808E'
+server = app.server  # exposed for the production server (gunicorn)
 
 yearly_means = preproc.load_data()
 
