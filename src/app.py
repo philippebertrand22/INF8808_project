@@ -19,12 +19,14 @@ from dash import dcc, html
 
 import preprocess as preproc
 import line_chart
+import petal_chart
 
 app = dash.Dash(__name__)
 app.title = 'Project | INF8808E'
 server = app.server  # exposed for the production server (gunicorn)
 
 yearly_means = preproc.load_data()
+genre_counts = preproc.load_genre_year_counts()
 
 GRAPH_CONFIG = {
     'showTips': False,
@@ -34,7 +36,7 @@ GRAPH_CONFIG = {
 }
 
 fig1 = line_chart.get_figure(yearly_means)
-
+fig2 = petal_chart.get_figure(genre_counts)
 
 app.layout = html.Div(children=[
     html.Header(className='hero', children=[
@@ -87,6 +89,17 @@ app.layout = html.Div(children=[
             'than an immediate one. Hover over a line to read the exact '
             'mean value of a characteristic for a given year.')),
         dcc.Graph(id='line-chart', figure=fig1, config=GRAPH_CONFIG,
+                  className='graph'),
+        
+        # ------------------------------------------------ Visualisation 2
+        html.H2('2. A century of genre evolution'),
+        html.P(children=(
+            'Each petal represents one of the ten most prevalent genres '
+            'in the dataset. Its length encodes the number of unique '
+            'tracks released that year — the longer the petal, the more '
+            'tracks. Use the slider or press Play to animate through '
+            'the century and watch genres rise and fall.')),
+        dcc.Graph(id='petal-chart', figure=fig2, config=GRAPH_CONFIG,
                   className='graph'),
 
         html.Footer(className='footer', children=[
