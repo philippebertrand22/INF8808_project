@@ -5,6 +5,8 @@
 Spotify Through the Decades is an interactive data visualization project that explores how music has evolved over the last 100 years. Using Spotify track metadata, audio features, and popularity metrics, this project uncovers trends in genres, artist popularity, musical characteristics, and listening preferences across different eras.
 
 The goal is to transform large-scale music data into engaging visual stories that highlight how music has changed from the 1920s to the present day.
+The result can be viewed thrue this link : https://inf8808-project-eprp.onrender.com/
+
 
 ## Project Objectives
 
