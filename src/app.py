@@ -20,6 +20,7 @@ from dash import dcc, html
 import preprocess as preproc
 import line_chart
 import petal_chart
+import bar_chart
 
 app = dash.Dash(__name__)
 app.title = 'Project | INF8808E'
@@ -27,6 +28,7 @@ server = app.server  # exposed for the production server (gunicorn)
 
 yearly_means = preproc.load_data()
 genre_counts = preproc.load_genre_year_counts()
+means_by_popularity = preproc.load_bar_chart_data()
 
 GRAPH_CONFIG = {
     'showTips': False,
@@ -37,6 +39,7 @@ GRAPH_CONFIG = {
 
 fig1 = line_chart.get_figure(yearly_means)
 fig2 = petal_chart.get_figure(genre_counts)
+fig3 = bar_chart.get_figure(means_by_popularity)
 
 app.layout = html.Div(children=[
     html.Header(className='hero', children=[

@@ -140,6 +140,14 @@ GENRE_MAPPING = {
     'harlem renaissance': 'blues', 'vaudeville': 'pop/standards',
 }
 
+BAR_CHART_FEATURES = ['valence','acousticness','liveness','instrumentalness','energy','danceability']
+'''
+Features with max value greater than 0
+['duration_ms','loudness','tempo']
+Other features
+['explicit', 'key','mode','speechiness','time_signature']
+'''
+
 
 def normalize_genre(genre):
     '''Maps detailed genre to mainstream category. Returns None for unmapped genres.'''
@@ -285,3 +293,50 @@ def load_data():
     yearly_means.to_csv(cache_path, index=False)
 
     return yearly_means
+
+
+def get_means_by_popularity(my_df):
+    '''
+    Computes the mean of the audio features by popularity 
+    used in visualisation xxx.  
+    Args:
+        my_df: The raw tracks dataframe
+    Returns:
+        means_by_popularity: The data for visualisation xxx
+    '''
+    
+    popularity_labels = ['very low','low','high','very high']
+    my_df = my_df.select_dtypes(exclude='object')#drop colomns whose type is object
+    
+    my_df["popularity_class"] = pd.cut(my_df["popularity"],
+                                       bins=[-1,25,50,75,100],
+                                       labels=popularity_labels
+                                       )
+    means_by_popularity = my_df.groupby("popularity_class",as_index = False)[BAR_CHART_FEATURES].mean()
+    return means_by_popularity
+
+def load_bar_chart_data():
+    '''
+        Loads the aggregated table used by visualisation xxx.
+
+        If the cached file is missing, the raw tracks CSV is read and
+        aggregated, and the result is cached in 'assets/data/'.
+
+        Returns:
+            yearly_means: The data for visualisation xxx
+    '''
+    cache_path = f'{CACHE_DIR}/means_by_popularity.csv'
+
+    if os.path.exists(cache_path):
+        return pd.read_csv(cache_path)
+
+    print('Building the aggregated data from the raw CSV file. '
+          'This is only done once and takes a few seconds...')
+
+    tracks = pd.read_csv(TRACKS_PATH)
+    means_by_popularity = get_means_by_popularity(tracks)
+
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    means_by_popularity.to_csv(cache_path, index=False)
+
+    return means_by_popularity

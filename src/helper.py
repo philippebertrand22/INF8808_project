@@ -18,6 +18,12 @@ FEATURE_COLORS = {
 
 BACKGROUND_COLOR = '#FDFDFB'
 
+BAR_CHART_COLORS = {
+    'very low':{'color': "#FDD0A6",'rank':4},
+    'low':{'color': "#fdb97e",'rank':3},
+    'high':{'color': "#faa084",'rank':2},
+    'very high':{'color': "#ff0000",'rank':1},
+    }
 
 def adjust_layout(fig):
     '''
