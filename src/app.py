@@ -106,7 +106,7 @@ app.layout = html.Div(children=[
                   className='graph'),
         
         # ------------------------------------------------ Visualisation 3
-        html.H2('2. Bar chart'),
+        html.H2('3. Bar chart'),
         html.P(children=(
             'Bar chart represents ...')),
         dcc.Graph(id='bar-chart', figure=fig3, config=GRAPH_CONFIG,
