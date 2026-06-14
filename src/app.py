@@ -104,7 +104,14 @@ app.layout = html.Div(children=[
             'the century and watch genres rise and fall.')),
         dcc.Graph(id='petal-chart', figure=fig2, config=GRAPH_CONFIG,
                   className='graph'),
-
+        
+        # ------------------------------------------------ Visualisation 3
+        html.H2('2. Bar chart'),
+        html.P(children=(
+            'Bar chart represents ...')),
+        dcc.Graph(id='bar-chart', figure=fig3, config=GRAPH_CONFIG,
+                  className='graph'),
+        
         html.Footer(className='footer', children=[
             html.P(children=[
                 'Data : ',
