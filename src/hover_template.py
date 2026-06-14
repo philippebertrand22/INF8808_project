@@ -19,4 +19,12 @@ def line_chart_hover_template():
             '<br><span style="font-family:Open Sans Condensed">'
             'Year : %{x}<br>'
             'Mean value : %{y:.3f}</span>'
-            '<extra></extra>')
+            '<extra></extra>')\
+
+def petal_chart_hover_template(genre, year, count):
+    return (
+        f'<b>{genre.capitalize()}</b><br>'
+        f'Year: {year}<br>'
+        f'Tracks: {count:,}'
+        '<extra></extra>'
+    )
