@@ -48,7 +48,7 @@ def get_figure(means_by_popularity):
             'gridcolor': '#E8E8E3'},
     #legend={'orientation': 'h', 'y': -0.18, 'x': 0.5,
     #        'xanchor': 'center'},
-        legend={'title':"Pupularity"},
+        legend={'title':"Popularity"},
     hovermode='closest')
     
     fig = helper.adjust_layout(fig)
