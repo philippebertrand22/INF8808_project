@@ -28,3 +28,20 @@ def petal_chart_hover_template(genre, year, count):
         f'Tracks: {count:,}'
         '<extra></extra>'
     )
+    
+def bar_chart_hover_template():
+    '''
+        Sets the template for the hover tooltips on the lines of
+        visualisation xxx.
+
+        Shows the name of the popularity class and the exact
+        mean value.
+
+        Returns:
+            The hover template.
+    '''
+    return ('<span style="font-family:Oswald"><b>%{fullData.name}</b></span>'
+            '<br><span style="font-family:Open Sans Condensed">'
+            'Feature : %{y}<br>'
+            'Mean value : %{x:.3f}<br>'
+            '<extra></extra>')
