@@ -59,7 +59,7 @@ app.layout = html.Div(children=[
 
         # ------------------------------------------------- Introduction
         html.P(className='lead', children=(
-            'Music is a constantly shifting mix of genres, sounds and '
+            'Muuuuuuuuuuusic is a constantly shifting mix of genres, sounds and '
             'personalities. Artists rise and fall, sounds evolve, and '
             'cultural moments leave permanent marks on the landscape. '
             'But over the last decade, it is the way we listen that has '
