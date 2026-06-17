@@ -59,49 +59,46 @@ app.layout = html.Div(children=[
 
         # ------------------------------------------------- Introduction
         html.P(className='lead', children=(
-            'Muuuuuuuuuuusic is a constantly shifting mix of genres, sounds and '
-            'personalities. Artists rise and fall, sounds evolve, and '
-            'cultural moments leave permanent marks on the landscape. '
-            'But over the last decade, it is the way we listen that has '
-            'changed the most : around 2015, streaming became the '
-            'uncontested mainstream way of consuming music, and '
-            'short-form content turned attention into the scarcest '
-            'resource of all.')),
+            'Music is a constantly changing scene, artists rise and fall '
+            'as the years pass. Trends appear, some are here to stay, and '
+            'others vanish. But one thing is for sure, during the last 15 '
+            'years, the way we listen to music has drastically changed. We '
+            'went from buying CDs and listening to the radio to streaming '
+            'most of what we listen to. All while short form content rose '
+            'and turned attention into a scarce resource.')),
         html.P(className='lead', children=(
-            'Using a Spotify dataset of more than 586,000 tracks released '
-            'between 1921 and 2020, we ask one question : how have the '
-            'characteristics of popular music shifted over the past '
-            'century — and has music structurally adapted its DNA to fit '
-            'the streaming era ? Scroll down to follow the story.')),
+            'Using a Spotify dataset of more than 586,000 tracks between '
+            '1921 and 2020. So, have the characteristics of popular music '
+            'shifted over the past century? And did music structurally '
+            'adapt to fit short form content and streaming?')),
 
         # ------------------------------------------------ Visualisation 1
-        html.H2('1. A century of sound, scarred by history'),
+        html.H2('A century of Music'),
         html.P(children=(
-            'Spotify describes every track with a set of audio '
-            'characteristics scored between 0 and 1 : energy (intensity '
-            'and activity), valence (how positive a track sounds), '
-            'danceability and acousticness. Averaged over every track '
-            'released in a year, they sketch a portrait of each era. Two '
-            'long-term movements stand out immediately : a relentless '
-            'rise in energy — from about 0.28 in the early 1920s to 0.64 '
-            'today — and the collapse of acousticness after the 1950s, '
-            'when electric instruments and studio production took over.')),
+            'Spotify describes characteristics based on a score going from '
+            '0 to 1. Here we display Energy that is a measure of intensity '
+            'and activity, valence (how positive a track sounds), '
+            'danceability and acousticness. All the characteristics are '
+            'averaged out over a year. We can directly identify two '
+            'long-term movements in the graph: first we see a long and '
+            'steady rise of energy, rising from around 0.3 in the 20s to '
+            '0.64 in 2020. The second notable trend is the collapse of '
+            'acousticness starting in the 1950s, which corroborates with '
+            'the introduction of electrical instruments.')),
         html.P(children=(
-            'The shaded bands mark major global crises. Look at valence '
-            'during World War II : the average positivity of new music '
-            'slides from 0.59 in 1939 to 0.49 in 1945, and only recovers '
-            'in the post-war years — a gradual, multi-year shift rather '
-            'than an immediate one. Hover over a line to read the exact '
-            'mean value of a characteristic for a given year.')),
-        dcc.Graph(id='line-chart', figure=fig1, config=GRAPH_CONFIG,
+            'We marked important historical events with shaded bars. For '
+            'example the average valence goes from 0.59 in 1939 to 0.49 '
+            'in 1945, it will only recover in post-war years. To see '
+            'specific values, hover over the lines.')),
+        dcc.Graph(id='line-chart', figure=fig1, config=GRAPH_CONFIG,#viz1----------------location
                   className='graph'),
         
         # ------------------------------------------------ Visualisation 2
-        html.H2('2. A century of genre evolution'),
+        html.H2('A century of genre evolution'),
         html.P(children=(
             'Each petal represents one of the ten most prevalent genres '
             'in the dataset. Its length encodes the number of unique '
-            'tracks released that year — the longer the petal, the more '
+            'tracks released that year, the longer the petal, the more '
             'tracks. Use the slider or press Play to animate through '
             'the century and watch genres rise and fall.')),
         dcc.Graph(id='petal-chart', figure=fig2, config=GRAPH_CONFIG,
