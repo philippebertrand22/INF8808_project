@@ -36,7 +36,8 @@ GRAPH_CONFIG = {
     'showTips': False,
     'showAxisDragHandles': False,
     'displayModeBar': False,
-    'scrollZoom': False
+    'scrollZoom': False,
+    'responsive': True
 }
 
 fig1 = line_chart.get_figure(yearly_means)
@@ -96,11 +97,13 @@ app.layout = html.Div(children=[
         # ------------------------------------------------ Visualisation 2
         html.H2('A century of genre evolution'),
         html.P(children=(
-            'Each petal represents one of the ten most prevalent genres '
-            'in the dataset. Its length encodes the number of unique '
-            'tracks released that year, the longer the petal, the more '
-            'tracks. Use the slider or press Play to animate through '
-            'the century and watch genres rise and fall.')),
+            'Each petal chart is a snapshot of one year, sampled every '
+            'decade from 1930 to 2020. Around each chart, every spoke is '
+            'one of the ten most prevalent genres in the dataset, and a '
+            'petal\u2019s length encodes the number of unique tracks '
+            'released that year — the longer the petal, the more tracks. '
+            'Read the grid left to right, top to bottom, to see genres '
+            'rise and fall across the century.')),
         dcc.Graph(id='petal-chart', figure=fig2, config=GRAPH_CONFIG,
                   className='graph'),
         
