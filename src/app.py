@@ -23,6 +23,7 @@ import preprocess as preproc
 import line_chart
 import petal_chart
 import bar_chart
+import radar_chart
 
 app = dash.Dash(__name__)
 app.title = 'Project | INF8808E'
@@ -31,6 +32,7 @@ server = app.server  # exposed for the production server (gunicorn)
 yearly_means = preproc.load_data()
 genre_counts = preproc.load_genre_year_counts()
 means_by_popularity = preproc.load_bar_chart_data()
+decades_means = preproc.load_decades_means_data()
 
 GRAPH_CONFIG = {
     'showTips': False,
@@ -43,6 +45,7 @@ GRAPH_CONFIG = {
 fig1 = line_chart.get_figure(yearly_means)
 fig2 = petal_chart.get_figure(genre_counts)
 fig3 = bar_chart.get_figure(means_by_popularity)
+fig4 = radar_chart.get_figure(decades_means)
 
 app.layout = html.Div(children=[
     html.Header(className='hero', children=[
@@ -93,7 +96,7 @@ app.layout = html.Div(children=[
             'specific values, hover over the lines.')),
         dcc.Graph(id='line-chart', figure=fig1, config=GRAPH_CONFIG,#viz1----------------location
                   className='graph'),
-        
+
         # ------------------------------------------------ Visualisation 2
         html.H2('A century of genre evolution'),
         html.P(children=(
@@ -106,14 +109,36 @@ app.layout = html.Div(children=[
             'rise and fall across the century.')),
         dcc.Graph(id='petal-chart', figure=fig2, config=GRAPH_CONFIG,
                   className='graph'),
-        
+
         # ------------------------------------------------ Visualisation 3
-        html.H2('3. Bar chart'),
+        html.H2('Audio Features Through Decades'),
         html.P(children=(
-            'Bar chart represents ...')),
+            'This radar chart compares the average profile of tracks across seven key '
+            'audio features. Each line represents three decades of musics. The blue one is from 1930 to 1960, '
+            'the orange one is from 1960 to 1990, and the green one is from 1990 to 2020. '
+            'Through the decades tracks features clearly move toward more danceability '
+            'and lower acousticness.')),
+        dcc.Graph(id='radar-chart', figure=fig4, config=GRAPH_CONFIG,
+                  className='graph'),
+
+        # ------------------------------------------------ Visualisation 4
+        html.H2('Today Popular Audio Features'),
+        html.P(children=(
+            'This bar chart compares the average values of key audio features '
+            'across four popularity tiers: Very Low (<25), Low (25–50), High (50–75), '
+            'and Very High (>75). '
+            'Each group of bars represents one audio feature. '
+            'Taller bars mean higher average values of the audio feature. '
+            'The red bars (Very High popularity) show what characteristics dominate '
+            'in today’s most popular tracks.')),
+        html.P(children=(
+            'Higher popularity strongly correlates with higher danceability '
+            'and energy. In the other hand, acousticness and instrumentalness correlates with lower popularity. '
+            'This suggests that modern popular music tends to be more upbeat, rhythmic, and produced for '
+            'immediate listening. Likely an adaptation to streaming and short-form content.')),
         dcc.Graph(id='bar-chart', figure=fig3, config=GRAPH_CONFIG,
                   className='graph'),
-        
+
         html.Footer(className='footer', children=[
             html.P(children=[
                 'Data : ',

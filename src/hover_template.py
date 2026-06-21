@@ -28,7 +28,7 @@ def petal_chart_hover_template(genre, year, count):
         f'Tracks: {count:,}'
         '<extra></extra>'
     )
-    
+
 def bar_chart_hover_template():
     '''
         Sets the template for the hover tooltips on the lines of
@@ -45,3 +45,11 @@ def bar_chart_hover_template():
             'Feature : %{y}<br>'
             'Mean value : %{x:.3f}<br>'
             '<extra></extra>')
+
+def radar_chart_hover_template():
+    return (
+        '<b>%{fullData.name}</b><br>'
+        'Feature: %{theta}<br>'
+        'Mean value: %{r:.3f}'
+        '<extra></extra>'
+    )
