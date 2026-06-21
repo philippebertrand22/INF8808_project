@@ -20,7 +20,7 @@ CACHE_DIR = './assets/data'
 
 # The audio features shown in visualisation 1. They are all
 # normalized between 0 and 1 in the original dataset.
-AUDIO_FEATURES = ['acousticness', 'danceability', 'energy', 'valence']
+AUDIO_FEATURES = ['acousticness', 'danceability', 'energy', 'valence', 'speechiness', 'instrumentalness']
 
 # Mapping of detailed genres to mainstream categories
 GENRE_MAPPING = {
@@ -34,7 +34,7 @@ GENRE_MAPPING = {
     'french jazz': 'jazz', 'british jazz': 'jazz', 'west african jazz': 'jazz',
     'jump blues': 'jazz', 'swing italiano': 'jazz', 'modern swing': 'jazz',
     'british dance band': 'jazz',
-    
+
     # Classical and related
     'classical': 'classical', 'classical performance': 'classical',
     'classical piano': 'classical', 'classical guitar': 'classical',
@@ -67,7 +67,7 @@ GENRE_MAPPING = {
     'german opera': 'classical', 'french opera': 'classical', 'italian opera': 'classical',
     'operetta': 'classical', 'acousmatic': 'classical', 'exotica': 'classical',
     'library music': 'classical',
-    
+
     # Blues and related
     'blues': 'blues', 'traditional blues': 'blues', 'country blues': 'blues',
     'delta blues': 'blues', 'chicago blues': 'blues', 'acoustic blues': 'blues',
@@ -76,7 +76,7 @@ GENRE_MAPPING = {
     'barrelhouse piano': 'blues', 'boogie-woogie': 'blues', 'ragtime': 'blues',
     'pre-war blues': 'blues', 'gospel blues': 'blues', 'harmonica blues': 'blues',
     'piedmont blues': 'blues', 'electric blues': 'blues',
-    
+
     # Folk and related
     'folk': 'folk', 'traditional folk': 'folk', 'appalachian folk': 'folk',
     'old-time': 'folk', 'bluegrass': 'folk', 'progressive bluegrass': 'folk',
@@ -84,7 +84,7 @@ GENRE_MAPPING = {
     'protest folk': 'folk', 'vintage old-time': 'folk',
     'vintage country folk': 'folk', 'american folk revival': 'folk',
     'banjo': 'folk', 'string band': 'folk', 'jug band': 'folk',
-    
+
     # Pop/Standards
     'adult standards': 'pop/standards', 'torch song': 'pop/standards',
     'lounge': 'pop/standards', 'easy listening': 'pop/standards',
@@ -92,11 +92,11 @@ GENRE_MAPPING = {
     'ye ye': 'pop/standards', 'movie tunes': 'pop/standards', 'broadway': 'pop/standards',
     'tin pan alley': 'pop/standards', 'vintage chanson': 'pop/standards',
     'hollywood': 'pop/standards',
-    
+
     # Tango
     'tango': 'tango', 'vintage tango': 'tango', 'orquesta tipica': 'tango',
     'bandoneon': 'tango',
-    
+
     # Latin/World
     'samba': 'latin', 'velha guarda': 'latin', 'calypso': 'latin',
     'rebetiko': 'latin', 'musica tradicional cubana': 'latin',
@@ -112,10 +112,10 @@ GENRE_MAPPING = {
     'greek swing': 'latin', 'copla': 'latin', 'muzica populara': 'latin',
     'anadolu rock': 'latin', 'turkish rock': 'latin', 'turkish psych': 'latin',
     'turkish jazz': 'latin', 'turkish instrumental': 'latin',
-    
+
     # Soul/R&B
     'soul': 'soul/r&b', 'rhythm and blues': 'soul/r&b',
-    
+
     # Country
     'traditional country': 'country', 'country gospel': 'country',
     'cowboy western': 'country', 'oklahoma country': 'country',
@@ -123,7 +123,7 @@ GENRE_MAPPING = {
     'nashville sound': 'country', 'western swing': 'country',
     'canadian country': 'country', 'canadian singer-songwriter': 'country',
     'country boogie': 'country',
-    
+
     # Indian/Bollywood
     'classic bollywood': 'indian', 'filmi': 'indian', 'ghazal': 'indian',
     'sufi': 'indian', 'carnatic': 'indian', 'rabindra sangeet': 'indian',
@@ -131,11 +131,11 @@ GENRE_MAPPING = {
     'indian classical': 'indian', 'classic tollywood': 'indian',
     'carnatic vocal': 'indian', 'bhajan': 'indian', 'classic pakistani pop': 'indian',
     'pakistani pop': 'indian', 'indie bollywood': 'indian',
-    
+
     # Rock/Alternative
     'psychedelic rock': 'rock', 'blues rock': 'rock', 'romanian rock': 'rock',
     'german oi': 'rock', 'german punk': 'rock',
-    
+
     # Harlem Renaissance (historical/blues-adjacent)
     'harlem renaissance': 'blues', 'vaudeville': 'pop/standards',
 }
@@ -221,7 +221,7 @@ def get_genre_year_counts(tracks_df):
     exploded_genres = merged.explode('genres')
     exploded_genres = exploded_genres.dropna(subset=['genres'])
     exploded_genres = exploded_genres[exploded_genres['genres'].str.strip() != '']
-    
+
     # Normalize genres to mainstream categories and filter out unmapped genres
     exploded_genres['genres'] = exploded_genres['genres'].apply(normalize_genre)
     exploded_genres = exploded_genres.dropna(subset=['genres'])
@@ -297,17 +297,17 @@ def load_data():
 
 def get_means_by_popularity(my_df):
     '''
-    Computes the mean of the audio features by popularity 
-    used in visualisation xxx.  
+    Computes the mean of the audio features by popularity
+    used in visualisation xxx.
     Args:
         my_df: The raw tracks dataframe
     Returns:
         means_by_popularity: The data for visualisation xxx
     '''
-    
+
     popularity_labels = ['very low','low','high','very high']
     my_df = my_df.select_dtypes(exclude='object')#drop colomns whose type is object
-    
+
     my_df["popularity_class"] = pd.cut(my_df["popularity"],
                                        bins=[-1,25,50,75,100],
                                        labels=popularity_labels
@@ -340,3 +340,42 @@ def load_bar_chart_data():
     means_by_popularity.to_csv(cache_path, index=False)
 
     return means_by_popularity
+
+def load_decades_means_data():
+    '''
+    Loads the radar chart data (3 time periods).
+    Uses cache if available, otherwise builds from raw data.
+    '''
+    cache_path = f'{CACHE_DIR}/decades_means.csv'
+
+    if os.path.exists(cache_path):
+        return pd.read_csv(cache_path)
+
+    print('Building radar data from the raw CSV file...')
+
+    tracks = pd.read_csv(TRACKS_PATH)
+    tracks = add_release_year(tracks)
+
+    radar_features = [
+        'danceability', 'energy', 'valence', 'liveness',
+        'acousticness', 'instrumentalness', 'speechiness'
+    ]
+
+    def get_period_means(df, start, end, label):
+        period = df[(df['release_year'] >= start) & (df['release_year'] <= end)]
+        means = period[radar_features].mean()
+        means['period'] = label
+        return means
+
+    data = [
+        get_period_means(tracks, 1930, 1960, '1930-1960'),
+        get_period_means(tracks, 1960, 1990, '1960-1990'),
+        get_period_means(tracks, 1990, 2020, '1990-2020')
+    ]
+
+    df = pd.DataFrame(data)
+
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    df.to_csv(cache_path, index=False)
+
+    return df
