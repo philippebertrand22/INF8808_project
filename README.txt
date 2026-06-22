@@ -61,9 +61,6 @@ Navigate through a century of music history using interactive charts.
 * NumPy
 * Spotify Web API
 
-## Insights
-
-## Future Improvements
-
-## Author
+## Authors
+Alexander Lelouche · Taro Sugiura · Gaspard Juillet · Eva Mosny · Philippe Bertrand · Charles-Emmanuel Joyal
 
