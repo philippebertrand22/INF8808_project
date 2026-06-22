@@ -36,7 +36,7 @@ def get_figure(decades_means):
         ),
         height=560,
         title="Evolution of Audio Features Across Eras",
-        legend=dict(title="Time Period", orientation="h", y=-0.15)
+        legend=dict(title="Time Period", orientation="h", y=-0.15, x=0.5, xanchor='center')
     )
 
     fig = helper.adjust_layout(fig)

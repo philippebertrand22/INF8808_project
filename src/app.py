@@ -77,7 +77,7 @@ app.layout = html.Div(children=[
             'adapt to fit short form content and streaming?')),
 
         # ------------------------------------------------ Visualisation 1
-        html.H2('A century of Music'),
+        html.H2('A Century of Music'),
         html.P(children=(
             'Spotify describes characteristics based on a score going from '
             '0 to 1. Here we display Energy that is a measure of intensity '
@@ -98,7 +98,7 @@ app.layout = html.Div(children=[
                   className='graph'),
 
         # ------------------------------------------------ Visualisation 2
-        html.H2('A century of genre evolution'),
+        html.H2('A Century of Genre Evolution'),
         html.P(children=(
             'Each petal chart is a snapshot of one year, sampled every '
             'decade from 1930 to 2020. Around each chart, every spoke is '
@@ -114,15 +114,15 @@ app.layout = html.Div(children=[
         html.H2('Audio Features Through Decades'),
         html.P(children=(
             'This radar chart compares the average profile of tracks across seven key '
-            'audio features. Each line represents three decades of musics. The blue one is from 1930 to 1960, '
-            'the orange one is from 1960 to 1990, and the green one is from 1990 to 2020. '
+            'audio features. Each line represents three decades of music. The blue line represents the period from 1930 to 1960, '
+            'the orange line represents 1960 to 1990, and the green line represents 1990 to 2020. '
             'Through the decades tracks features clearly move toward more danceability '
             'and lower acousticness.')),
         dcc.Graph(id='radar-chart', figure=fig4, config=GRAPH_CONFIG,
                   className='graph'),
 
         # ------------------------------------------------ Visualisation 4
-        html.H2('Today Popular Audio Features'),
+        html.H2("Today's Popular Audio Features"),
         html.P(children=(
             'This bar chart compares the average values of key audio features '
             'across four popularity tiers: Very Low (<25), Low (25–50), High (50–75), '
