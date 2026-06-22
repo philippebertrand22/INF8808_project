@@ -107,6 +107,9 @@ app.layout = html.Div(children=[
             'released that year — the longer the petal, the more tracks. '
             'Read the grid left to right, top to bottom, to see genres '
             'rise and fall across the century.')),
+        html.P(children=(
+            'We can see throughout the decades the rise and fall of jazz '
+            'and rock, as well as the rise of Latin music.')),
         dcc.Graph(id='petal-chart', figure=fig2, config=GRAPH_CONFIG,
                   className='graph'),
 
@@ -133,11 +136,29 @@ app.layout = html.Div(children=[
             'in today’s most popular tracks.')),
         html.P(children=(
             'Higher popularity strongly correlates with higher danceability '
-            'and energy. In the other hand, acousticness and instrumentalness correlates with lower popularity. '
+            'and energy. On the other hand, acousticness and instrumentalness correlate with lower popularity. '
             'This suggests that modern popular music tends to be more upbeat, rhythmic, and produced for '
             'immediate listening. Likely an adaptation to streaming and short-form content.')),
         dcc.Graph(id='bar-chart', figure=fig3, config=GRAPH_CONFIG,
                   className='graph'),
+
+        # ------------------------------------------------ Conclusion
+        html.H2('Conclusion'),
+        html.P(children=(
+            'After exploring this dataset and creating these visualizations, '
+            'we feel that we can draw a few conclusions. We believe that the '
+            'premise under which music has adapted to streaming and short form '
+            'content is true. As we look at the different graphs, bar charts, '
+            'etc., time and time again we see that duration seems to diminish, '
+            'genre diversity seems to crash and some key characteristics seem '
+            'to be valued (e.g.: the rise and fall of energy and acousticness).')),
+        html.P(children=(
+            'But in the end this analysis was done on characteristics; we don’t '
+            'have access to the precise tracks or their lyrics. It would have been '
+            'very interesting to work on the evolution of word diversity in music, '
+            'the mapping of rhythmic types, keys, chord progressions and so on. '
+            'For future work, a direct access to the core data (tracks and lyrics) '
+            'could let us dive deep into the adaptation of music to our modern world.')),
 
         html.Footer(className='footer', children=[
             html.P(children=[
