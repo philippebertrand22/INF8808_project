@@ -119,8 +119,7 @@ app.layout = html.Div(children=[
             'This radar chart compares the average profile of tracks across seven key '
             'audio features. Each line represents three decades of music. The blue line represents the period from 1930 to 1960, '
             'the orange line represents 1960 to 1990, and the green line represents 1990 to 2020. '
-            'Through the decades tracks features clearly move toward more danceability '
-            'and lower acousticness.')),
+            'Through the decades tracks features clearly move toward more energy and lower acousticness.')),
         dcc.Graph(id='radar-chart', figure=fig4, config=GRAPH_CONFIG,
                   className='graph'),
 
